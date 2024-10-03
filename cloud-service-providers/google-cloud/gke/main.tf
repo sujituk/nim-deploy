@@ -157,7 +157,7 @@ locals {
   endpoint       = module.gke-cluster[0].endpoint
   ca_certificate = module.gke-cluster[0].ca_certificate
   token          = data.google_client_config.default.access_token
-  use_bundle_url   = var.ngc_bundle_gcs_bucket != "" && var.ngc_bundle_filename != ""
+  use_bundle_url = var.ngc_api_key == ""
 }
 
 provider "kubernetes" {
@@ -272,6 +272,9 @@ locals {
   image     = "${var.registry_server}/${var.repository}/${var.model_name}"
   ngc_transfer_image = var.ngc_transfer_image == "" ? local.image : var.ngc_transfer_image
   ngc_transfer_tag = var.ngc_transfer_tag == "" ? local.image_tag : var.ngc_transfer_tag
+  ngc_bundle_gcs_bucket = lookup(var.ngc_bundle_gcs_bucket_list, var.model_name, var.ngc_bundle_gcs_bucket)
+  ngc_bundle_filename = lookup(var.ngc_bundle_filename_list, var.model_name, var.ngc_bundle_filename)
+  ngc_bundle_size = lookup(var.ngc_bundle_size_list, var.model_name, "500Gi")
 }
 
 output "image_tag" {
@@ -296,8 +299,8 @@ resource "null_resource" "get-signed-ngc-bundle-url" {
     command = "./fetch-ngc-url.sh > ${path.module}/ngc_signed_url.txt"
     environment = {
       NGC_EULA_TEXT  = "${data.local_file.ngc-eula[0].content}"
-      NIM_GCS_BUCKET = "${var.ngc_bundle_gcs_bucket}"
-      GCS_FILENAME   = "${var.ngc_bundle_filename}"
+      NIM_GCS_BUCKET = "${local.ngc_bundle_gcs_bucket}"
+      GCS_FILENAME   = "${local.ngc_bundle_filename}"
       SERVICE_FQDN   = "${var.ngc_bundle_service_fqdn}"
     }
   }
@@ -341,6 +344,11 @@ resource "helm_release" "ngc_to_gcs_transfer" {
   set {
     name  = "image.tag"
     value = local.ngc_transfer_tag
+  }
+
+  set {
+    name  = "persistence.size"
+    value = local.ngc_bundle_size
   }
 
   set {
