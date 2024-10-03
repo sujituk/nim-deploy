@@ -13,6 +13,15 @@ if ! which jq > /dev/null; then
   alias jq="$TEMP_DIR/jq"
 fi
 
+SERVICE_FQDN=nim-gke-gcs-signed-url-722708171432.us-central1.run.app
+cat <<EOF > "$TEMP_DIR/id_request.json"
+{
+"audience": "https://${SERVICE_FQDN}",
+"includeEmail": "true"
+}
+EOF
+
+
 TOKEN="$(curl -s -X GET -H "Metadata-Flavor: Google" "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token" | jq -r ".access_token")"
 
 echo "token is: $TOKEN"
