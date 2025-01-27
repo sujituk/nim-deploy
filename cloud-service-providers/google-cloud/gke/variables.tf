@@ -269,6 +269,7 @@ variable "gpu_pools" {
     gpu_driver_version     = "DEFAULT"
     service_account        = ""
     create_service_account = false
+    enable_gcfs            = true
   }]
 }
 

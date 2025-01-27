@@ -27,6 +27,7 @@ locals {
     "servicenetworking.googleapis.com",
     "stackdriver.googleapis.com",
     "storage.googleapis.com",
+    "containerfilesystem.googleapis.com",
   ]
   services = concat(local.default_services, var.services)
 }
