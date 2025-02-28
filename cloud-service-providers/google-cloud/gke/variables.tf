@@ -94,10 +94,6 @@ variable "release_channel" {
   default = "REGULAR"
 }
 
-#variable "cluster_location" {
-#  type = string
-#}
-
 variable "ip_range_pods" {
   type    = string
   default = ""
@@ -253,7 +249,7 @@ variable "gpu_pools" {
     initial_node_count                = optional(number, 1)
     accelerator_count                 = optional(number, 0)
     accelerator_type                  = optional(string, "nvidia-l4")
-    gpu_driver_version                = optional(string, "DEFAULT")
+    gpu_driver_version                = optional(string, "LATEST")
   }))
   default = [{
     name                   = "gpu-pool"
@@ -266,7 +262,7 @@ variable "gpu_pools" {
     accelerator_count      = 2
     autoscaling            = true
     accelerator_type       = "nvidia-l4"
-    gpu_driver_version     = "DEFAULT"
+    gpu_driver_version     = "LATEST"
     service_account        = ""
     create_service_account = false
     enable_gcfs            = true
@@ -276,22 +272,22 @@ variable "gpu_pools" {
 variable "gpu_locations_l4" {
   type = map(string)
 
-  # gcloud compute accelerator-types list \
-  # --filter="name:nvidia-l4 AND name!=nvidia-l4-vws" \
-  # --format="value(zone)" \
-  # | sort
+   # gcloud compute accelerator-types list \
+   # --filter="name:nvidia-l4 AND name!=nvidia-l4-vws" \
+   # --format="value(zone)" \
+   # | sort
 
   default = {
     "asia-east1"      = "asia-east1-a,asia-east1-b,asia-east1-c"
-    "asia-northeast1" = "asia-northeast1-a,asia-northeast1-c"
+    "asia-northeast1" = "asia-northeast1-a,asia-northeast1-b,asia-northeast1-c"
     "asia-northeast3" = "asia-northeast3-a,asia-northeast3-b"
     "asia-south1"     = "asia-south1-a,asia-south1-b,asia-south1-c"
     "asia-southeast1" = "asia-southeast1-a,asia-southeast1-b,asia-southeast1-c"
     "europe-west1"    = "europe-west1-b,europe-west1-c"
     "europe-west2"    = "europe-west2-a,europe-west2-b"
-    "europe-west3"    = "europe-west3-b"
+    "europe-west3"    = "europe-west3-a,europe-west3-b"
     "europe-west4"    = "europe-west4-a,europe-west4-b,europe-west4-c"
-    "europe-west6"    = "europe-west6-b"
+    "europe-west6"    = "europe-west6-b,europe-west6-c"
     "us-central1"     = "us-central1-a,us-central1-b,us-central1-c"
     "us-east1"        = "us-east1-b,us-east1-c,us-east1-d"
     "us-east4"        = "us-east4-a,us-east4-c"
@@ -320,17 +316,17 @@ variable "gpu_locations_a100" {
 variable "gpu_locations_h100_80gb" {
   type = map(string)
 
-  # gcloud compute accelerator-types list \
-  # --filter="name:nvidia-h100-80gb" \
-  # --format="value(zone)" \
-  # | sort
+   # gcloud compute accelerator-types list \
+   # --filter="name:nvidia-h100-80gb" \
+   # --format="value(zone)" \
+   # | sort
 
   default = {
     "asia-northeast1"      = "asia-northeast1-b"
     "asia-southeast1"      = "asia-southeast1-b,asia-southeast1-c"
-    "europe-west1"         = "europe-west1-b"
-    "us-central1"          = "us-central1-a"
-    "us-east4"             = "us-east4-a,us-east4-b"
+    "europe-west1"         = "europe-west1-b,europe-west1-c"
+    "us-central1"          = "us-central1-a,us-central1-b,us-central1-c"
+    "us-east4"             = "us-east4-a,us-east4-b,us-east4-c"
     "us-west1"             = "us-west1-a,us-west1-b"
     "us-west4"             = "us-west4-a"
   }
@@ -376,7 +372,13 @@ variable "vm_gpu_spec_list" {
       local_ssd_count   = 1
       gpu_family        = "a100"
     }
-    a2-ultragpu-4g = {
+    a2-ultragpu-2g = {
+      accelerator_type  = "nvidia-a100-80gb"
+      accelerator_count = 2
+      local_ssd_count   = 2
+      gpu_family        = "a100"
+    }
+    a2-ultragpu-4g = { 
       accelerator_type  = "nvidia-a100-80gb"
       accelerator_count = 4
       local_ssd_count   = 4
@@ -389,12 +391,6 @@ variable "vm_gpu_spec_list" {
       gpu_family        = "a100"
     }
   }
-}
-
-variable "region_based_vm" {
-  type        = string
-  description = "Cluster and GPU location"
-  default     = "L4 us-east4 g2-standard-24"
 }
 
 ## NVIDIA NIM specific config
@@ -547,7 +543,7 @@ variable "repository" {
 variable "model_name" {
   type        = string
   description = "Name of the NIM model"
-  default     = "meta/llama3-8b-instruct​"
+  default     = "llama3-8b-instruct"
 }
 
 variable "tag" {
@@ -585,4 +581,133 @@ variable "goog_labels" {
   default = {
     goog-partner-solution = "isol_plb32_0014m00001hpys5qag_iwykuqcrgtmoiokaxboelvp35cwormjz"
   }
+}
+
+# Api key
+variable "production" {
+  type = bool
+  description = "Whether to use the production API key"
+  default = false
+}
+
+# NIM variables
+variable "llama3_8b_compatibility" {
+  type = string
+  description = "GPU type"
+  default = "L4"
+}
+
+variable "llama31_8b_compatibility" {
+  type = string
+  description = "GPU type"
+  default = ""
+}
+
+variable "llama3_70b_compatibility" {
+  type = string
+  description = "GPU type"
+  default = ""
+}
+
+
+variable "llama31_70b_compatibility" {
+  type = string
+  description = "GPU type"
+  default = ""
+}
+
+variable "llama31_405b_compatibility" {
+  type = string
+  description = "GPU type"
+  default = ""
+}
+
+variable "mistral_7b_compatibility" {
+  type = string
+  description = "GPU type"
+  default = ""
+}
+
+variable "mixtral_7b_compatibility" {
+  type = string
+  description = "GPU type"
+  default = ""
+}
+
+variable "nv_mistral_compatibility" {
+  type = string
+  description = "GPU type"
+  default = ""
+}
+
+variable "nv_mistral_7b_compatibility" {
+  type = string
+  description = "GPU type"
+  default = ""
+}
+
+variable "nv_embedqa_e5_compatibility" {
+  type = string
+  description = "GPU type"
+  default = ""
+}
+
+variable "l4_machine_selection" {
+  type = string
+  description = "Machine type"
+  default = "g2-standard-24"
+}
+
+variable "a100_llama3_8b_selection" {
+  type = string
+  description = "Machine type"
+  default = ""
+}
+
+variable "a100_llama3_70b_selection" {
+  type = string
+  description = "Machine type"
+  default = ""
+}
+
+variable "h100_machine_selection" {
+  type = string
+  description = "Machine type"
+  default = ""
+}
+
+variable "a100_llama31_70b_selection" {
+  type = string
+  description = "Machine type"
+  default = ""
+}
+
+variable "a100_mixtral_7b_selection" {
+  type = string
+  description = "Machine type"
+  default = ""
+}
+
+variable "a100_nv_mistral_selection" {
+  type = string
+  description = "Machine type"
+  default = ""
+}
+
+variable "compatible_cluster_location_l4" {
+  type = string
+  description = "Cluster location"
+  default = "us-central1"
+}
+
+variable "compatible_cluster_location_a100" {
+  type = string
+  description = "Cluster location"
+  default = ""
+}
+
+variable "compatible_cluster_location_h100" {
+  type = string
+  description = "Cluster location"
+  default = ""
 }

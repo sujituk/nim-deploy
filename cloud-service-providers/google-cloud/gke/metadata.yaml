@@ -24,10 +24,6 @@ spec:
         description: Additional labels to add to Kubernetes resources.
         varType: string
         defaultValue: "created-by=gke-ai-quick-start-solutions,ai.gke.io=nim"
-      #- name: cluster_location
-      #  varType: string
-      #  required: true
-      #  defaultValue: "us-central1"
       - name: cluster_name
         varType: string
         defaultValue: "nim-on-gke"
@@ -64,10 +60,6 @@ spec:
         varType: string
         required: true
         defaultValue: "$oauthtoken"
-      - name: ngc_api_key
-        varType: string
-        required: true
-        defaultValue: ""
       - name: registry_server
         varType: string
         required: true
@@ -77,29 +69,127 @@ spec:
         description: "Docker repository tag of NIM container"
         varType: string
         required: true
-      - name: region_based_vm
-        description: "Pick a region for GKE Cluster and NVIDIA GPU accelerator"
-        varType: string
-        required: true
-        defaultValue: "L4 us-east4 g2-standard-24"
       - name: model_name
         description: "Pick a NIM model name"
         varType: string
         required: true
         defaultValue: ""
-      - name: gpu_limits
-        description: "GPU limits"
-        varType: number
-        defaultValue: 1
+      - name: llama3_8b
+        description: "model"
+        varType: static_text
+      - name: llama3_70b
+        description: "model"
+        varType: static_text
+      - name: llama31_8b
+        description: "model"
+        varType: static_text
+      - name: mixtral_7b
+        description: "model"
+        varType: static_text
+      - name: mistral_7b
+        description: "model"
+        varType: static_text
+      - name: nv_rerankqa_mistral_4b_v3
+        description: "model"
+        varType: static_text
+      - name: nv_embedqa_e5_v5
+        description: "model"
+        varType: static_text
       - name: nim_license
         description: Terms and Conditions
         varType: bool
         defaultValue: false
         required: true
+      - name: llama3_8b_compatibility
+        description: "Pick a GPU"
+        varType: string
+        defaultValue: ""
+      - name: llama31_8b_compatibility
+        description: "Pick a GPU"
+        varType: string
+        defaultValue: ""
+      - name: llama3_70b_compatibility
+        description: "Pick a GPU"
+        varType: string
+        defaultValue: ""
+      - name: llama31_405b_compatibility
+        description: "Pick a GPU"
+        varType: string
+        defaultValue: ""
+      - name: llama31_70b_compatibility
+        description: "Pick a GPU"
+        varType: string
+        defaultValue: ""
+      - name: mixtral_7b_compatibility
+        description: "Pick a GPU"
+        varType: string
+        defaultValue: ""
+      - name: mistral_7b_compatibility
+        description: "Pick a GPU"
+        varType: string
+      - name: nv_mistral_compatibility
+        description: "Pick a GPU"
+        varType: string
+      - name: nv_mistral_7b_compatibility
+        description: "Pick a GPU"
+        varType: string
+      - name: nv_embedqa_e5_compatibility
+        description: "Pick a GPU"
+        varType: string
+      - name: l4_machine_selection
+        description: "Pick a GPU"
+        varType: string
+        defaultValue: ""
+      - name: h100_machine_selection
+        description: "Pick a GPU"
+        varType: string
+        defaultValue: ""
+      - name: a100_llama3_8b_selection
+        description: "Pick a machine type"
+        varType: string
+        defaultValue: ""
+      - name: a100_llama3_70b_selection
+        description: "Pick a machine type"
+        varType: string
+        defaultValue: ""
+      - name: a100_llama31_70b_selection
+        description: "Pick a machine type"
+        varType: string
+        defaultValue: ""
+      - name: a100_mixtral_7b_selection
+        description: "Pick a machine type"
+        varType: string
+        defaultValue: ""
+      - name: a100_nv_mistral_selection
+        description: "Pick a machine type"
+        varType: string
+        defaultValue: ""
+      - name: compatible_cluster_location_l4
+        description: "Pick a region"
+        varType: string
+      - name: compatible_cluster_location_a100
+        description: "Pick a region"
+        varType: string
+      - name: compatible_cluster_location_h100
+        description: "Pick a region"
+        varType: string
+      - name: gpu_limits
+        description: "GPU limits"
+        varType: number
+        defaultValue: 1
+      - name: production
+        varType: bool
+      - name: ngc_api_key
+        varType: string
+        defaultValue: ""
     outputs:
       - name: cluster_name
         description: GKE cluster name where the NIMs are running
-      - name: cluster_location
+      - name: compatible_cluster_location_l4
+        description: GKE cluster location
+      - name: compatible_cluster_location_a100
+        description: GKE cluster location
+      - name: compatible_cluster_location_h100
         description: GKE cluster location
       - name: project_id
         description: GCP project

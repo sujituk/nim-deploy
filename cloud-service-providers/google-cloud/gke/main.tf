@@ -42,15 +42,111 @@ locals {
     "nvidia-h100-80gb" = var.gpu_locations_h100_80gb
   }
 
-  region_vm        = split(" ", var.region_based_vm)
-  cluster_location = local.region_vm[length(local.region_vm) - 2]
-  machine_type = {
-    "machine_type" = local.region_vm[length(local.region_vm) - 1]
-  }
-  gpu_type = lookup(var.vm_gpu_spec_list, local.region_vm[length(local.region_vm) - 1])
-
   gpu_location = lookup(local.all_gpu_locations, local.gpu_type.accelerator_type, {})
+    
+  cluster_location = lookup(local.location_mapping, "${var.model_name}_${local.compatibility_variable}", var.compatible_cluster_location_l4)
+
+
+  location_mapping = {
+    "llama3-8b-instruct_L4"           = var.compatible_cluster_location_l4,
+    "llama3-8b-instruct_A100(80GB)"   = var.compatible_cluster_location_a100,
+    "llama3-8b-instruct_H100(80GB)"   = var.compatible_cluster_location_h100,
+
+    "llama-3.1-8b-instruct_A100(80GB)" = var.compatible_cluster_location_a100,
+    "llama-3.1-8b-instruct_H100(80GB)" = var.compatible_cluster_location_h100,
+    "llama-3.1-8b-instruct_L4"         = var.compatible_cluster_location_l4,
+
+    "llama-3.1-70b-instruct_A100(80GB)" = var.compatible_cluster_location_a100,
+    "llama-3.1-70b-instruct_H100(80GB)" = var.compatible_cluster_location_h100,
+    "llama-3.1-70b-instruct_L4"         = var.compatible_cluster_location_l4,
+
+    "llama3-70b-instruct_A100(80GB)"  = var.compatible_cluster_location_a100,
+    "llama3-70b-instruct_H100(80GB)"  = var.compatible_cluster_location_h100,
+
+    "llama-3.1-405b-instruct_H100(80GB)" = var.compatible_cluster_location_h100,
+
+    "mixtral-8x7b-instruct-v01_A100(80GB)" = var.compatible_cluster_location_a100,
+    "mixtral-8x7b-instruct-v01_H100(80GB)" = var.compatible_cluster_location_h100,
+    "mixtral-8x7b-instruct-v01_L4" = var.compatible_cluster_location_l4,
+
+    "mistral-7b-instruct-v0.3_L4"           = var.compatible_cluster_location_l4,
+    "mistral-7b-instruct-v0.3_A100(80GB)"   = var.compatible_cluster_location_a100,
+    "mistral-7b-instruct-v0.3_H100(80GB)"   = var.compatible_cluster_location_h100,
+
+    "nv-rerankqa-mistral-4b-v3_L4" = var.compatible_cluster_location_l4,
+    "nv-rerankqa-mistral-4b-v3_A100(80GB)" = var.compatible_cluster_location_a100,
+    "nv-rerankqa-mistral-4b-v3_H100(80GB)" = var.compatible_cluster_location_h100,
+
+    "nv-embedqa-e5-v5_L4" = var.compatible_cluster_location_l4,
+    "nv-embedqa-e5-v5_A100(80GB)" = var.compatible_cluster_location_a100,
+    "nv-embedqa-e5-v5_H100(80GB)" = var.compatible_cluster_location_h100,
+
+    "nv-embedqa-mistral-7b-v2_L4" = var.compatible_cluster_location_l4,
+    "nv-embedqa-mistral-7b-v2_A100(80GB)" = var.compatible_cluster_location_a100,
+    "nv-embedqa-mistral-7b-v2_H100(80GB)" = var.compatible_cluster_location_h100
+  }
   
+  machine_type_mapping = {
+      "llama3-8b-instruct_L4" = var.l4_machine_selection
+      "llama3-8b-instruct_A100(80GB)" = var.a100_llama3_8b_selection
+      "llama3-8b-instruct_H100(80GB)" = var.h100_machine_selection
+
+      "llama-3.1-8b-instruct_A100(80GB)" = var.a100_llama3_8b_selection
+      "llama-3.1-8b-instruct_H100(80GB)" = var.h100_machine_selection
+      "llama-3.1-8b-instruct_L4" = var.l4_machine_selection
+
+      "llama-3.1-70b-instruct_A100(80GB)" = var.a100_llama31_70b_selection
+      "llama-3.1-70b-instruct_H100(80GB)" = var.h100_machine_selection
+      "llama-3.1-70b-instruct_L4" = var.l4_machine_selection
+
+      "llama3-70b-instruct_A100(80GB)" = var.a100_llama3_70b_selection
+      "llama3-70b-instruct_H100(80GB)" = var.h100_machine_selection
+
+      "llama-3.1-405b-instruct_H100(80GB)" = var.h100_machine_selection
+
+      "mixtral-8x7b-instruct-v01_A100(80GB)" = var.a100_mixtral_7b_selection
+      "mixtral-8x7b-instruct-v01_H100(80GB)" = var.h100_machine_selection
+      "mixtral-8x7b-instruct-v01_L4" = var.l4_machine_selection
+
+      "mistral-7b-instruct-v0.3_L4" = var.l4_machine_selection
+      "mistral-7b-instruct-v0.3_A100(80GB)" = var.a100_llama3_8b_selection
+      "mistral-7b-instruct-v0.3_H100(80GB)" = var.h100_machine_selection
+
+      "nv-rerankqa-mistral-4b-v3_L4" = var.l4_machine_selection
+      "nv-rerankqa-mistral-4b-v3_A100(80GB)" = var.a100_nv_mistral_selection
+      "nv-rerankqa-mistral-4b-v3_H100(80GB)" = var.h100_machine_selection
+
+      "nv-embedqa-e5-v5_L4" = var.l4_machine_selection
+      "nv-embedqa-e5-v5_A100(80GB)" = var.a100_nv_mistral_selection
+      "nv-embedqa-e5-v5_H100(80GB)" = var.h100_machine_selection
+
+      "nv-embedqa-mistral-7b-v2_L4" = var.l4_machine_selection
+      "nv-embedqa-mistral-7b-v2_A100(80GB)" = var.a100_nv_mistral_selection
+      "nv-embedqa-mistral-7b-v2_H100(80GB)" = var.h100_machine_selection
+  }
+  compatibility_variable_mapping = {
+     "llama3-8b-instruct"      = var.llama3_8b_compatibility
+     "llama-3.1-8b-instruct"   = var.llama31_8b_compatibility 
+     "llama-3.1-70b-instruct"  = var.llama31_70b_compatibility
+
+     "llama3-70b-instruct"     = var.llama3_70b_compatibility
+
+     "llama-3.1-405b-instruct"  = var.llama31_405b_compatibility
+
+     "mixtral-8x7b-instruct-v01" = var.mixtral_7b_compatibility
+
+     "mistral-7b-instruct-v0.3" = var.mistral_7b_compatibility
+
+     "nv-rerankqa-mistral-4b-v3" = var.nv_mistral_compatibility 
+
+     "nv-embedqa-e5-v5" = var.nv_embedqa_e5_compatibility 
+
+     "nv-embedqa-mistral-7b-v2" = var.nv_mistral_7b_compatibility
+  }
+  compatibility_variable = lookup(local.compatibility_variable_mapping, var.model_name, "")
+  machine_type = lookup(local.machine_type_mapping, "${var.model_name}_${local.compatibility_variable}", "")
+  gpu_type = lookup(var.vm_gpu_spec_list, local.machine_type)
+
   accelerator_type = {
     "accelerator_type" = local.gpu_type.accelerator_type
   }  
@@ -116,10 +212,18 @@ locals {
 
   zone = length(split("-", local.cluster_location)) > 2 ? split(",", local.cluster_location) : split(",", local.gpu_location[local.region])
 
-  # Update gpu_pools with node_locations according to region and zone gpu availibility, if not provided
-  gpu_pools = [for elm in var.gpu_pools : (local.regional && contains(keys(local.gpu_location), local.region) && elm["node_locations"] == "") ? merge(elm, { "node_locations" : local.gpu_location[local.region] }) : elm]
-
-  gpu_pools_configured = [merge(local.gpu_pools[0], local.machine_type, local.accelerator_type, local.accelerator_count, local.local_ssd_ephemeral_storage_count)]
+  gpu_pools = [
+    for elm in var.gpu_pools : {
+        machine_type = local.machine_type
+        accelerator_type = local.accelerator_type.accelerator_type
+        accelerator_count = local.accelerator_count.accelerator_count
+        local_ssd_ephemeral_storage_count = local.local_ssd_ephemeral_storage_count.local_ssd_ephemeral_storage_count
+        node_locations = (local.regional && contains(keys(local.gpu_location), local.region) && elm["node_locations"] == "") ? local.gpu_location[local.region] : (elm["node_locations"] != "" ? elm["node_locations"] : null)
+        name =  elm.name
+        disk_size_gb = elm.disk_size_gb
+        disk_type = elm.disk_type
+      }
+    ]
 }
 
 output "cluster_name" {
@@ -128,6 +232,30 @@ output "cluster_name" {
 
 output "cluster_location" {
   value = local.cluster_location
+}
+
+output "zone"{
+  value = local.zone
+}
+
+output "region"{
+  value = local.region
+}
+
+output "machine_type" {
+  value = local.machine_type
+}
+
+output "image_tag" {
+  value = local.image_tag
+}
+
+output "model_name" {
+  value = var.model_name
+}
+
+output "image" {
+  value = local.image
 }
 
 module "gke-cluster" {
@@ -157,7 +285,7 @@ module "gke-cluster" {
   ## pools config variables
   cpu_pools                   = var.cpu_pools
   enable_gpu                  = var.enable_gpu
-  gpu_pools = local.gpu_pools_configured
+  gpu_pools = local.gpu_pools
   all_node_pools_oauth_scopes = var.all_node_pools_oauth_scopes
   all_node_pools_labels       = var.all_node_pools_labels
   all_node_pools_metadata     = var.all_node_pools_metadata
@@ -176,7 +304,7 @@ locals {
   endpoint       = module.gke-cluster[0].endpoint
   ca_certificate = module.gke-cluster[0].ca_certificate
   token          = data.google_client_config.default.access_token
-  use_bundle_url = var.ngc_api_key == ""
+  use_bundle_url = var.ngc_api_key == "" && var.production == false
 }
 
 provider "kubernetes" {

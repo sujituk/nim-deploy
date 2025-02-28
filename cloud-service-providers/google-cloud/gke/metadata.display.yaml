@@ -30,15 +30,6 @@ spec:
           title: Additional Labels
           invisible: true
           section: required_config
-        #cluster_location:
-        #  name: cluster_location
-        #  title: Cluster Location
-        #  section: required_config
-        #  xGoogleProperty:
-        #    type: ET_GCE_REGION
-        #    # specified regions have L4, A2 and A3 GPUs https://cloud.google.com/compute/docs/gpus/gpu-regions-zones#view-using-tools
-        #    gce_region:
-        #      allowlisted_regions: ["asia-east1","asia-southeast1","europe-west1","europe-west4","us-central1","us-east1","us-east4","us-west1","us-west4"]
         cluster_name:
           name: cluster_name
           title: Cluster Name
@@ -82,11 +73,6 @@ spec:
           title: NGC Login username
           section: required_config
           invisible: true
-        ngc_api_key:
-          name: ngc_api_key
-          title: NGC API Key
-          section: required_config
-          invisible: true
         registry_server:
           name: registry_server
           title: NVIDIA Registry
@@ -97,89 +83,6 @@ spec:
           title: NIM image tag
           section: required_config
           invisible: true     
-        region_based_vm:
-          name: region_based_vm
-          title: Cluster and GPU location
-          section: required_config
-          enumValueLabels:
-            - label: "L4 asia-east1 g2-standard-24"
-              value: "L4 asia-east1 g2-standard-24"
-            - label: "L4 asia-south1 g2-standard-24"
-              value: "L4 asia-south1 g2-standard-24"
-            - label: "L4 europe-west1 g2-standard-24"
-              value: "L4 europe-west1 g2-standard-24"
-            - label: "L4 us-central1 g2-standard-24" 
-              value: "L4 us-central1 g2-standard-24"
-            - label: "L4 us-east4 g2-standard-24"
-              value: "L4 us-east4 g2-standard-24"
-            - label: "L4 us-west1 g2-standard-24" 
-              value: "L4 us-west1 g2-standard-24"
-            - label: "L4 asia-east1 g2-standard-48"
-              value: "L4 asia-east1 g2-standard-48"
-            - label: "L4 asia-south1 g2-standard-48"
-              value: "L4 asia-south1 g2-standard-48"
-            - label: "L4 europe-west1 g2-standard-48"
-              value: "L4 europe-west1 g2-standard-48"
-            - label: "L4 us-central1 g2-standard-48"
-              value: "L4 us-central1 g2-standard-48"
-            - label: "L4 us-east4 g2-standard-48"
-              value: "L4 us-east4 g2-standard-48"
-            - label: "L4 us-west1 g2-standard-48"
-              value: "L4 us-west1 g2-standard-48"
-            - label: "L4 asia-east1 g2-standard-96"
-              value: "L4 asia-east1 g2-standard-96"
-            - label: "L4 asia-south1 g2-standard-96"
-              value: "L4 asia-south1 g2-standard-96"
-            - label: "L4 europe-west1 g2-standard-96"
-              value: "L4 europe-west1 g2-standard-96"
-            - label: "L4 us-central1 g2-standard-96"
-              value: "L4 us-central1 g2-standard-96"
-            - label: "L4 us-east4 g2-standard-96"
-              value: "L4 us-east4 g2-standard-96"
-            - label: "L4 us-west1 g2-standard-96"
-              value: "L4 us-west1 g2-standard-96"
-            - label: "H100(80GB) asia-northeast1 a3-highgpu-8g"
-              value: "H100(80GB) asia-northeast1 a3-highgpu-8g"
-            - label: "H100(80GB) asia-southeast1 a3-highgpu-8g"
-              value: "H100(80GB) asia-southeast1 a3-highgpu-8g"
-            - label: "H100(80GB) europe-west1 a3-highgpu-8g"
-              value: "H100(80GB) europe-west1 a3-highgpu-8g"
-            - label: "H100(80GB) us-central1 a3-highgpu-8g"
-              value: "H100(80GB) us-central1 a3-highgpu-8g"
-            - label: "H100(80GB) us-east4 a3-highgpu-8g"
-              value: "H100(80GB) us-east4 a3-highgpu-8g"
-            - label: "H100(80GB) us-west1 a3-highgpu-8g"
-              value: "H100(80GB) us-west1 a3-highgpu-8g"
-            - label: "H100(80GB) us-west4 a3-highgpu-8g"
-              value: "H100(80GB) us-west4 a3-highgpu-8g"
-            - label: "A100(80GB) asia-southeast1 a2-ultragpu-1g"
-              value: "A100(80GB) asia-southeast1 a2-ultragpu-1g"
-            - label: "A100(80GB) europe-west4 a2-ultragpu-1g"
-              value: "A100(80GB) europe-west4 a2-ultragpu-1g"
-            - label: "A100(80GB) us-central1 a2-ultragpu-1g"
-              value: "A100(80GB) us-central1 a2-ultragpu-1g"
-            - label: "A100(80GB) us-east4 a2-ultragpu-1g"
-              value: "A100(80GB) us-east4 a2-ultragpu-1g"
-            - label: "A100(80GB) asia-southeast1 a2-ultragpu-4g"
-              value: "A100(80GB) asia-southeast1 a2-ultragpu-4g"
-            - label: "A100(80GB) europe-west4 a2-ultragpu-4g"
-              value: "A100(80GB) europe-west4 a2-ultragpu-4g"
-            - label: "A100(80GB) us-central1 a2-ultragpu-4g"
-              value: "A100(80GB) us-central1 a2-ultragpu-4g"
-            - label: "A100(80GB) us-east4 a2-ultragpu-4g"
-              value: "A100(80GB) us-east4 a2-ultragpu-4g"
-            - label: "A100(80GB) asia-northeast1 a2-ultragpu-8g"
-              value: "A100(80GB) asia-northeast1 a2-ultragpu-8g"
-            - label: "A100(80GB) asia-south1 a2-ultragpu-8g"
-              value: "A100(80GB) asia-south1 a2-ultragpu-8g"
-            - label: "A100(80GB) europe-west1 a2-ultragpu-8g"
-              value: "A100(80GB) europe-west1 a2-ultragpu-8g"
-            - label: "A100(80GB) us-central1 a2-ultragpu-8g"
-              value: "A100(80GB) us-central1 a2-ultragpu-8g"
-            - label: "A100(80GB) us-east4 a2-ultragpu-8g"
-              value: "A100(80GB) us-east4 a2-ultragpu-8g"
-            - label: "A100(80GB) us-west1 a2-ultragpu-8g"
-              value: "A100(80GB) us-west1 a2-ultragpu-8g"
         model_name:
           name: model_name
           title: NIM Model name
@@ -205,15 +108,453 @@ spec:
               value: nv-embedqa-e5-v5
             - label: nvidia/nv-embedqa-mistral-7b-v2
               value: nv-embedqa-mistral-7b-v2
+        llama3_8b:
+          name: llama3_8b
+          title: "Agree to this EULA to proceed"
+          section: required_config
+          subtext: 
+               <p>
+               The NIM container is governed by <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/">NVIDIA Agreements | Enterprise Software | NVIDIA Software License Agreement</a> and <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/">NVIDIA Agreements | Enterprise Software | Product Specific Terms for AI Product</a>; and the use of the model is governed by governed by the <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-ai-foundation-models-community-license-agreement/">NVIDIA AI Foundation Models Community License Agreement.</a><br/>
+               <b>Additional Information</b><br/>
+               &emsp;&emsp;&#x2022; For Llama3 models&#58; <a href="https://www.llama.com/llama3/license/">Meta Llama 3 Community License, Built with Meta Llama 3</a><br/>
+               </p>
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["llama3-8b-instruct"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_STRING
+        llama3_70b:
+          name: llama3_70b
+          title: "Agree to this EULA to proceed"
+          section: required_config
+          subtext: 
+               <p>
+               The NIM container is governed by <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/">NVIDIA Agreements | Enterprise Software | NVIDIA Software License Agreement</a> and <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/">NVIDIA Agreements | Enterprise Software | Product Specific Terms for AI Product</a>; and the use of the model is governed by governed by the <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-ai-foundation-models-community-license-agreement/">NVIDIA AI Foundation Models Community License Agreement.</a><br/>
+               <b>Additional Information</b><br/>
+               &emsp;&emsp;&#x2022; For Llama3 models&#58; <a href="https://www.llama.com/llama3/license/">Meta Llama 3 Community License, Built with Meta Llama 3</a><br/>
+               </p>
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["llama3-70b-instruct"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_STRING
+        llama31_8b:
+          name: llama31_8b
+          title: "Agree to this EULA to proceed"
+          section: required_config
+          subtext: 
+              <p>
+              The NIM container is governed by <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/">NVIDIA Agreements | Enterprise Software | NVIDIA Software License Agreement</a> and <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/">NVIDIA Agreements | Enterprise Software | Product Specific Terms for AI Product</a>; and the use of the model is governed by governed by the <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-ai-foundation-models-community-license-agreement/">NVIDIA AI Foundation Models Community License Agreement.</a><br/>
+              <b>Additional Information</b><br/>
+              &emsp;&emsp;&#x2022; For Llama-3.1 models&#58; <a href="https://www.llama.com/llama3_1/license/">Llama 3.1 Community License Agreement, Built with Llama</a><br/>
+              </p>
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["llama-3.1-8b-instruct"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_STRING
+            - variableName: model_name
+              variableValues: ["llama-3.1-405b-instruct"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_STRING
+            - variableName: model_name
+              variableValues: ["llama-3.1-70b-instruct"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_STRING
+        mixtral_7b:
+          name: mixtral_7b
+          title: "Agree to this EULA to proceed"
+          section: required_config
+          subtext: 
+              <p>
+              The NIM container is governed by <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/">NVIDIA Agreements | Enterprise Software | NVIDIA Software License Agreement</a> and <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/">NVIDIA Agreements | Enterprise Software | Product Specific Terms for AI Product</a>; and the use of the model is governed by governed by the <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-ai-foundation-models-community-license-agreement/">NVIDIA AI Foundation Models Community License Agreement.</a><br/>
+              <b>Additional Information</b><br/>
+              &emsp;&emsp;&#x2022; For Mixtral models&#58; <a href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2">Apache 2.0 License</a><br/>
+              </p>
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["mixtral-8x7b-instruct-v01"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_STRING
+        mistral_7b:
+          name: mistral_7b
+          title: "Agree to this EULA to proceed"
+          section: required_config
+          subtext: 
+              <p>
+              The NIM container is governed by <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/">NVIDIA Agreements | Enterprise Software | NVIDIA Software License Agreement</a> and <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/">NVIDIA Agreements | Enterprise Software | Product Specific Terms for AI Product</a>; and the use of the model is governed by governed by the <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-ai-foundation-models-community-license-agreement/">NVIDIA AI Foundation Models Community License Agreement.</a><br/>
+              <b>Additional Information</b><br/>
+              &emsp;&emsp;&#x2022; For Mistral models&#58; <a href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2">Apache 2.0 License</a><br/>
+              </p>
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["mistral-7b-instruct-v0.3"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_STRING
+            - variableName: model_name
+              variableValues: ["nv-rerankqa-mistral-4b-v3"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_STRING
+            - variableName: model_name
+              variableValues: ["nv-embedqa-mistral-7b-v2"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_STRING
+        nv_embedqa_e5_v5:
+          name: nv_embedqa_e5_v5
+          title: "Agree to this EULA to proceed"
+          section: required_config
+          subtext: 
+              <p>
+              The NIM container is governed by <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/">NVIDIA Agreements | Enterprise Software | NVIDIA Software License Agreement</a> and <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/">NVIDIA Agreements | Enterprise Software | Product Specific Terms for AI Product</a>; and the use of the model is governed by governed by the <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-ai-foundation-models-community-license-agreement/">NVIDIA AI Foundation Models Community License Agreement.</a><br/>
+              <b>Additional Information</b><br/>
+              &emsp;&emsp;&#x2022; For E5-Large models&#58; <a href="https://choosealicense.com/licenses/mit/">MIT license</a><br/>
+              </p>
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["nv-embedqa-e5-v5"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_STRING
         nim_license:
           name: nim_license
           title: I agree to the Terms and Conditions
-          section: license
+          section: required_config
         gpu_limits:
           name: gpu_limits
           title: GPU limits
           section: required_config
           invisible: true 
+        llama3_8b_compatibility: # This is also the case for llama-3.1-8b-instruct and llama-3.1-70b-instruct
+          name: llama3_8b_compatibility
+          title: GPU type
+          section: required_config
+          enumValueLabels:
+            - label: "H100(80GB)"
+              value: "H100(80GB)"
+            - label: "A100(80GB)"
+              value: "A100(80GB)"
+            - label: "L4"
+              value: "L4"
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["llama3-8b-instruct"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        llama31_8b_compatibility:
+          name: llama31_8b_compatibility
+          title: GPU type
+          section: required_config
+          enumValueLabels:
+            - label: "H100(80GB)"
+              value: "H100(80GB)"
+            - label: "A100(80GB)"
+              value: "A100(80GB)"
+            - label: "L4"
+              value: "L4"
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["llama-3.1-8b-instruct"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED     
+        mistral_7b_compatibility:
+          name: mistral_7b_compatibility
+          title: GPU type
+          section: required_config
+          enumValueLabels:
+            - label: "H100(80GB)"
+              value: "H100(80GB)"
+            - label: "A100(80GB)"
+              value: "A100(80GB)"
+            - label: "L4"
+              value: "L4"
+          toggleUsingVariables:   
+            - variableName: model_name
+              variableValues: ["mistral-7b-instruct-v0.3"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED  
+        nv_mistral_compatibility:
+          name: nv_mistral_compatibility
+          title: GPU type
+          section: required_config
+          enumValueLabels:
+            - label: "H100(80GB)"
+              value: "H100(80GB)"
+            - label: "A100(80GB)"
+              value: "A100(80GB)"
+            - label: "L4"
+              value: "L4"
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["nv-rerankqa-mistral-4b-v3"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        nv_embedqa_e5_compatibility:
+          name: nv_embedqa_e5_compatibility
+          title: GPU type
+          section: required_config
+          enumValueLabels:
+            - label: "H100(80GB)"
+              value: "H100(80GB)"
+            - label: "A100(80GB)"
+              value: "A100(80GB)"
+            - label: "L4"
+              value: "L4"
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["nv-embedqa-e5-v5"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        nv_mistral_7b_compatibility:
+          name: nv_mistral_7b_compatibility
+          title: GPU type
+          section: required_config
+          enumValueLabels:
+            - label: "H100(80GB)"
+              value: "H100(80GB)"
+            - label: "A100(80GB)"
+              value: "A100(80GB)"
+            - label: "L4"
+              value: "L4"
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["nv-embedqa-mistral-7b-v2"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        llama31_70b_compatibility:
+          name: llama31_70b_compatibility
+          title: GPU type
+          section: required_config
+          enumValueLabels:
+            - label: "H100(80GB)"
+              value: "H100(80GB)"
+            - label: "A100(80GB)"
+              value: "A100(80GB)"
+            - label: "L4"
+              value: "L4"
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["llama-3.1-70b-instruct"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        llama3_70b_compatibility:
+          name: llama3_70b_compatibility
+          title: GPU type
+          section: required_config
+          enumValueLabels:
+            - label: "H100(80GB)"
+              value: "H100(80GB)"
+            - label: "A100(80GB)"
+              value: "A100(80GB)"
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["llama3-70b-instruct"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        llama31_405b_compatibility:
+          name: llama31_405b_compatibility
+          title: GPU type
+          section: required_config
+          enumValueLabels:
+            - label: "H100(80GB)"
+              value: "H100(80GB)"
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["llama-3.1-405b-instruct"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED  
+        mixtral_7b_compatibility:
+          name: mixtral_7b_compatibility
+          title: GPU type
+          section: required_config
+          enumValueLabels:
+            - label: "H100(80GB)"
+              value: "H100(80GB)"
+            - label: "A100(80GB)"
+              value: "A100(80GB)"
+          toggleUsingVariables:
+            - variableName: model_name
+              variableValues: ["mixtral-8x7b-instruct-v01"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        a100_nv_mistral_selection:
+           name: a100_nv_mistral_selection
+           title: Machine types
+           section: required_config
+           enumValueLabels:
+            - label: "a2-ultragpu-1g"
+              value: "a2-ultragpu-1g"
+           toggleUsingVariables:
+            - variableName: "nv_mistral_compatibility" # this is for  nv-rerankqa-mistral-4b-v3 and nv-embedqa-e5-v5 and nv-embedqa-mistral-7b-v2
+              variableValues: ["A100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "nv_mistral_7b_compatibility"
+              variableValues: ["A100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "nv_embedqa_e5_compatibility"
+              variableValues: ["A100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        a100_mixtral_7b_selection:
+           name: a100_mixtral_7b_selection
+           title: Machine types
+           section: required_config
+           enumValueLabels:
+            - label: "a2-ultragpu-2g"
+              value: "a2-ultragpu-2g"
+            - label: "a2-ultragpu-4g"
+              value: "a2-ultragpu-4g"
+           toggleUsingVariables:
+            - variableName: "mixtral_7b_compatibility"
+              variableValues: ["A100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        a100_llama3_70b_selection:
+           name: a100_llama3_70b_selection
+           title: Machine types
+           section: required_config
+           enumValueLabels:
+            - label: "a2-ultragpu-4g"
+              value: "a2-ultragpu-4g"
+           toggleUsingVariables:
+            - variableName: "llama3_70b_compatibility"
+              variableValues: ["A100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        a100_llama3_8b_selection:
+           name: a100_llama3_8b_selection
+           title: Machine types
+           section: required_config
+           enumValueLabels:
+            - label: "a2-ultragpu-1g"
+              value: "a2-ultragpu-1g"
+            - label: "a2-ultragpu-2g"
+              value: "a2-ultragpu-2g"
+           toggleUsingVariables:
+            - variableName: "llama3_8b_compatibility"
+              variableValues: ["A100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "llama31_8b_compatibility"
+              variableValues: ["A100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "mistral_7b_compatibility"
+              variableValues: ["A100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        a100_llama31_70b_selection:
+          name: a100_llama31_70b_selection
+          title: Machine types
+          section: required_config
+          enumValueLabels:
+           - label: "a2-ultragpu-4g"
+             value: "a2-ultragpu-4g"
+           - label: "a2-ultragpu-8g"
+             value: "a2-ultragpu-8g"
+          toggleUsingVariables:
+            - variableName: "llama31_70b_compatibility"
+              variableValues: ["A100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        l4_machine_selection:
+          name: l4_machine_selection
+          title: Machine Type
+          section: required_config
+          enumValueLabels:
+            - label: "g2-standard-24"
+              value: "g2-standard-24"
+            - label: "g2-standard-48"
+              value: "g2-standard-48"
+            - label: "g2-standard-96"
+              value: "g2-standard-96"
+          toggleUsingVariables:
+            - variableName: "llama3_8b_compatibility"
+              variableValues: ["L4"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "llama31_70b_compatibility"
+              variableValues: ["L4"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "nv_mistral_compatibility" # this is for nv-rerankqa-mistral-4b-v3 
+              variableValues: ["L4"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "nv_mistral_7b_compatibility"
+              variableValues: ["L4"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "nv_embedqa_e5_compatibility"
+              variableValues: ["L4"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "mistral_7b_compatibility"
+              variableValues: ["L4"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "llama31_8b_compatibility"
+              variableValues: ["L4"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        h100_machine_selection:
+          name: h100_machine_selection
+          title: Machine Type
+          section: required_config
+          enumValueLabels:
+            - label: "a3-highgpu-8g"
+              value: "a3-highgpu-8g"
+          toggleUsingVariables:
+            - variableName: "llama3_8b_compatibility"
+              variableValues: ["H100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "llama31_8b_compatibility"
+              variableValues: ["H100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "llama3_70b_compatibility"
+              variableValues: ["H100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "llama31_405b_compatibility"
+              variableValues: ["H100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "llama31_70b_compatibility"
+              variableValues: ["H100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "mixtral_7b_compatibility"
+              variableValues: ["H100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "nv_mistral_compatibility" # this is for  nv-rerankqa-mistral-4b-v3 
+              variableValues: ["H100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "nv_mistral_7b_compatibility"
+              variableValues: ["H100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "nv_embedqa_e5_compatibility"
+              variableValues: ["H100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+            - variableName: "mistral_7b_compatibility"
+              variableValues: ["H100(80GB)"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_UNSPECIFIED
+        compatible_cluster_location_l4:
+          name: compatible_cluster_location_l4
+          title: Region
+          section: required_config
+          xGoogleProperty:
+           type: ET_GCE_REGION
+           # specified regions have L4, A2 and A3 GPUs https://cloud.google.com/compute/docs/gpus/gpu-regions-zones#view-using-tools
+           gce_region:
+            allowlisted_regions: ["asia-east1","asia-southeast1","europe-west1","us-central1","us-east4","us-west1"]
+          toggleUsingVariables:
+            - variableName: l4_machine_selection
+              variableValues: ["g2-standard-24", "g2-standard-48", "g2-standard-96"]
+        compatible_cluster_location_a100:
+          name: compatible_cluster_location_a100
+          title: Region
+          section: required_config
+          xGoogleProperty:
+           type: ET_GCE_REGION
+           # specified regions have L4, A2 and A3 GPUs https://cloud.google.com/compute/docs/gpus/gpu-regions-zones#view-using-tools
+           gce_region:
+            allowlisted_regions: ["asia-southeast1","europe-west4","us-central1","us-east4"]
+          toggleUsingVariables:
+            - variableName: a100_llama3_8b_selection
+              variableValues: ["a2-ultragpu-1g", "a2-ultragpu-2g"]
+            - variableName: a100_llama3_70b_selection
+              variableValues: ["a2-ultragpu-4g"]
+            - variableName: a100_llama31_70b_selection
+              variableValues: ["a2-ultragpu-4g", "a2-ultragpu-8g"]
+            - variableName: a100_mixtral_7b_selection
+              variableValues: ["a2-ultragpu-2g", "a2-ultragpu-4g"]
+            - variableName: a100_nv_mistral_selection # for nv-rerankqa-mistral-4b-v3 and nv-embedqa-e5-v5 and nv-embedqa-mistral-7b-v2
+              variableValues: ["a2-ultragpu-1g"]
+        compatible_cluster_location_h100:
+          name: compatible_cluster_location_h100
+          title: Region
+          section: required_config
+          xGoogleProperty:
+           type: ET_GCE_REGION
+           # specified regions have L4, A2 and A3 GPUs https://cloud.google.com/compute/docs/gpus/gpu-regions-zones#view-using-tools
+           gce_region:
+            allowlisted_regions: ["asia-northeast1","asia-southeast1","europe-west1", "us-central1","us-east4","us-west1", "us-west4"]
+          toggleUsingVariables:
+            - variableName: h100_machine_selection
+              variableValues: ["a3-highgpu-8g"]
+        production:
+          name: production
+          title: NGC API key
+          section: required_config
+        ngc_api_key:
+          name: ngc_api_key
+          title: Input NGC API Key
+          section: required_config
+          toggleUsingVariables:
+            - variableName: production
+              variableValues: ["true"]
+              type: DISPLAY_VARIABLE_TOGGLE_TYPE_BOOLEAN
       sections:
         - name: acknowledge
           title: Before you begin
@@ -221,18 +562,6 @@ spec:
                 This solution deploys a <a href="https://github.com/NVIDIA/nim-deploy/tree/main/cloud-service-providers/google-cloud/gke/README.md#nvidia-nims-on-gke"><i>NVIDIA NIM</i></a> application on GKE in your project.</br>
         - name: required_config
           title: Required configuration
-        - name: license
-          title: Governing Terms & Conditions
-          subtext: 
-                <p>
-                The NIM container is governed by <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/">NVIDIA Agreements | Enterprise Software | NVIDIA Software License Agreement</a> and <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/">NVIDIA Agreements | Enterprise Software | Product Specific Terms for AI Product</a>; and the use of the model is governed by governed by the <a href="https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-ai-foundation-models-community-license-agreement/">NVIDIA AI Foundation Models Community License Agreement.</a><br/>
-                <b>Additional Information</b><br/>
-                &emsp;&emsp;&#x2022; For Llama-3.1 models&#58; <a href="https://www.llama.com/llama3_1/license/">Llama 3.1 Community License Agreement, Built with Llama</a><br/>
-                &emsp;&emsp;&#x2022; For Llama3 models&#58; <a href="https://www.llama.com/llama3/license/">Meta Llama 3 Community License, Built with Meta Llama 3</a><br/>
-                &emsp;&emsp;&#x2022; For Mistral models&#58; <a href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2">Apache 2.0 License</a><br/>
-                &emsp;&emsp;&#x2022; For Mixtral models&#58; <a href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2">Apache 2.0 License</a><br/>
-                &emsp;&emsp;&#x2022; For E5-Large models&#58; <a href="https://choosealicense.com/licenses/mit/">MIT license</a><br/>
-                </p>
     runtime:
       outputMessage: Deployment can take several minutes to complete.
       suggestedActions:
