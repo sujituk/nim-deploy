@@ -278,21 +278,24 @@ variable "gpu_locations_l4" {
    # | sort
 
   default = {
-    "asia-east1"      = "asia-east1-a,asia-east1-b,asia-east1-c"
-    "asia-northeast1" = "asia-northeast1-a,asia-northeast1-b,asia-northeast1-c"
-    "asia-northeast3" = "asia-northeast3-a,asia-northeast3-b"
-    "asia-south1"     = "asia-south1-a,asia-south1-b,asia-south1-c"
-    "asia-southeast1" = "asia-southeast1-a,asia-southeast1-b,asia-southeast1-c"
-    "europe-west1"    = "europe-west1-b,europe-west1-c"
-    "europe-west2"    = "europe-west2-a,europe-west2-b"
-    "europe-west3"    = "europe-west3-a,europe-west3-b"
-    "europe-west4"    = "europe-west4-a,europe-west4-b,europe-west4-c"
-    "europe-west6"    = "europe-west6-b,europe-west6-c"
-    "us-central1"     = "us-central1-a,us-central1-b,us-central1-c"
-    "us-east1"        = "us-east1-b,us-east1-c,us-east1-d"
-    "us-east4"        = "us-east4-a,us-east4-c"
-    "us-west1"        = "us-west1-a,us-west1-b,us-west1-c"
-    "us-west4"        = "us-west4-a,us-west4-c"
+    "asia-east1"              = "asia-east1-a,asia-east1-b,asia-east1-c"
+    "asia-northeast1"         = "asia-northeast1-a,asia-northeast1-b,asia-northeast1-c"
+    "asia-northeast3"         = "asia-northeast3-a,asia-northeast3-b"
+    "asia-south1"             = "asia-south1-a,asia-south1-b,asia-south1-c"
+    "asia-southeast1"         = "asia-southeast1-a,asia-southeast1-b,asia-southeast1-c"
+    "europe-west1"            = "europe-west1-b,europe-west1-c"
+    "europe-west2"            = "europe-west2-a,europe-west2-b"
+    "europe-west3"            = "europe-west3-a,europe-west3-b"
+    "europe-west4"            = "europe-west4-a,europe-west4-b,europe-west4-c"
+    "europe-west6"            = "europe-west6-b,europe-west6-c"
+    "me-central2"             = "me-central2-a"
+    "northamerica-northeast2" = "northamerica-northeast2-a"
+    "us-central1"             = "us-central1-a,us-central1-b,us-central1-c"
+    "us-east1"                = "us-east1-b,us-east1-c,us-east1-d"
+    "us-east4"                = "us-east4-a,us-east4-c"
+    "us-east7"                = "us-east7-b"
+    "us-west1"                = "us-west1-a,us-west1-b,us-west1-c"
+    "us-west4"                = "us-west4-a,us-west4-c"
   }
 }
 
@@ -342,10 +345,40 @@ variable "vm_gpu_spec_list" {
   description = "A map of VMs and GPU specs"
 
   default = {
+    g2-standard-4 = {
+      accelerator_type  = "nvidia-l4"
+      accelerator_count = 1
+      local_ssd_count   = 1
+      gpu_family        = "l4"
+    }
+    g2-standard-8 = {
+      accelerator_type  = "nvidia-l4"
+      accelerator_count = 1
+      local_ssd_count   = 1
+      gpu_family        = "l4"
+    }
+    g2-standard-12 = {
+      accelerator_type  = "nvidia-l4"
+      accelerator_count = 1
+      local_ssd_count   = 1
+      gpu_family        = "l4"
+    }
+    g2-standard-16 = {
+      accelerator_type  = "nvidia-l4"
+      accelerator_count = 1
+      local_ssd_count   = 1
+      gpu_family        = "l4"
+    }
     g2-standard-24 = {
       accelerator_type  = "nvidia-l4"
       accelerator_count = 2
-      local_ssd_count   = 2
+      local_ssd_count   = 1
+      gpu_family        = "l4"
+    }
+    g2-standard-32 = {
+      accelerator_type  = "nvidia-l4"
+      accelerator_count = 1
+      local_ssd_count   = 1
       gpu_family        = "l4"
     }
     g2-standard-48 = {
@@ -655,7 +688,7 @@ variable "nv_embedqa_e5_compatibility" {
 variable "l4_machine_selection" {
   type = string
   description = "Machine type"
-  default = "g2-standard-24"
+  default = "g2-standard-4"
 }
 
 variable "a100_llama3_8b_selection" {

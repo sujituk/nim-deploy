@@ -433,8 +433,18 @@ spec:
           title: Machine Type
           section: required_config
           enumValueLabels:
+            - label: "g2-standard-4"
+              value: "g2-standard-4"
+            - label: "g2-standard-8"
+              value: "g2-standard-8"
+            - label: "g2-standard-12"
+              value: "g2-standard-12"
+            - label: "g2-standard-16"
+              value: "g2-standard-16"
             - label: "g2-standard-24"
               value: "g2-standard-24"
+            - label: "g2-standard-32"
+              value: "g2-standard-32"
             - label: "g2-standard-48"
               value: "g2-standard-48"
             - label: "g2-standard-96"
@@ -507,10 +517,10 @@ spec:
            type: ET_GCE_REGION
            # specified regions have L4, A2 and A3 GPUs https://cloud.google.com/compute/docs/gpus/gpu-regions-zones#view-using-tools
            gce_region:
-            allowlisted_regions: ["asia-east1","asia-southeast1","europe-west1","us-central1","us-east4","us-west1"]
+            allowlisted_regions: ["asia-east1", "asia-northeast1", "asia-northeast3", "asia-south1", "asia-southeast1", "europe-west1", "europe-west2", "europe-west3", "europe-west4", "europe-west6", "me-central2", "northamerica-northeast2", "us-central1", "us-east1", "us-east4", "us-east7", "us-west1", "us-west4"]
           toggleUsingVariables:
             - variableName: l4_machine_selection
-              variableValues: ["g2-standard-24", "g2-standard-48", "g2-standard-96"]
+              variableValues: ["g2-standard-4","g2-standard-8","g2-standard-12", "g2-standard-16","g2-standard-24", "g2-standard-32","g2-standard-48", "g2-standard-96"]
         compatible_cluster_location_a100:
           name: compatible_cluster_location_a100
           title: Region
