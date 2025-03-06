@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-project_id = "<GCP ProjectID>"
+project_id = "isv-coe-skhas-nvidia"
 
 ##common variables
 cluster_name         = "nim-on-gke"
@@ -65,8 +65,15 @@ gpu_pools = [
 ## NIM specific values
 ngc_api_key     = ""
 
-registry_server = "us-docker.pkg.dev/nvidia-vgpu-public"
-repository = "nim-gke"
+# registry_server = "us-docker.pkg.dev/nvidia-vgpu-public"
+# repository = "nim-gke"
 
-model_name      = "llama3-8b-instruct"
+# registry_server = "nvcr.io"
+# repository = "nim"
+
+model_name      = "llama-3.1-8b-instruct"
 region_based_vm = "L4 us-east4 g2-standard-24"
+
+llama31_8b_compatibility = "L4"
+l4_machine_selection = "g2-standard-24"
+compatible_cluster_location_l4 = "us-east4"

@@ -418,8 +418,14 @@ provider "helm" {
 
 locals {
 
+	use_trial = var.ngc_api_key == "" && var.production == false
+
   image_tag = lookup(var.nim_list, var.model_name, var.tag)
-  image     = "${var.registry_server}/${var.repository}/${var.model_name}"
+	image_provider = lookup(var.nim_model_provider_mapping, var.model_name)
+
+  # image     = "${var.registry_server}/${var.repository}/${var.model_name}"
+  image     = (local.use_trial) ? "${var.registry_server}/${var.repository}/${var.model_name}" : "${var.ngc_server}/${var.ngc_container_path}/${local.image_provider}/${var.model_name}"
+
   ngc_transfer_image = var.ngc_transfer_image == "" ? local.image : var.ngc_transfer_image
   ngc_transfer_tag = var.ngc_transfer_tag == "" ? local.image_tag : var.ngc_transfer_tag
   ngc_bundle_gcs_bucket = lookup(var.ngc_bundle_gcs_bucket_list, var.model_name)

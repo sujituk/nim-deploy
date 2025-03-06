@@ -528,16 +528,27 @@ variable "ngc_api_key" {
   sensitive   = true
 }
 
+variable "ngc_server" {
+  type        = string
+  description = "Registry that hosts the NIM images"
+  default     = "nvcr.io"
+}
+
+variable "ngc_container_path" {
+  type        = string
+  description = "NIM microservices path under nvcr.io"
+  default     = "nim"
+}
 variable "registry_server" {
   type        = string
   default     = "us-docker.pkg.dev/nvidia-vgpu-public"
-  description = "Registry that hosts the NIM images"
+  description = "Docker repo by NV"
 }
 
 variable "repository" {
   type        = string
-  description = "Docker image of NIM container"
   default     = "nim-gke"
+  description = "Docker image of NIM container"
 }
 
 variable "model_name" {
@@ -710,4 +721,22 @@ variable "compatible_cluster_location_h100" {
   type = string
   description = "Cluster location"
   default = ""
+}
+
+variable "nim_model_provider_mapping" {
+  type        = map(string)
+  description = "A map of model to its provider"
+
+  default = {
+    "llama-3.1-8b-instruct"     = "meta"
+    "llama-3.1-70b-instruct"    = "meta"
+    "llama-3.1-405b-instruct"   = "meta"
+    "llama3-70b-instruct"       = "meta"
+    "llama3-8b-instruct"        = "meta"
+    "mistral-7b-instruct-v0.3"  = "mistralai"
+    "mixtral-8x7b-instruct-v01" = "mistralai"
+    "nv-embedqa-e5-v5"          = "nvidia"
+    "nv-embedqa-mistral-7b-v2"  = "nvidia"
+    "nv-rerankqa-mistral-4b-v3" = "nvidia"
+  }
 }
