@@ -2,43 +2,32 @@
 
 TEMP_DIR="$(mktemp -d)"
 
-if ! which curl > /dev/null; then
-  CURL_VERSION=8.10.1
-  wget -q "https://github.com/stunnel/static-curl/releases/download/${CURL_VERSION}/curl-linux-x86_64-${CURL_VERSION}.tar.xz" -P "$TEMP_DIR"
-  tar xf "$TEMP_DIR/curl-linux-x86_64-${CURL_VERSION}.tar.xz" -C "$TEMP_DIR"
-  alias curl="$TEMP_DIR/curl"
-fi
+alias curl="./redist/curl/curl"
+alias jq="./redist/jq/jq"
 
-if ! which jq > /dev/null; then
-  JQ_VERSION=1.7
-  wget -q "https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64" -O "$TEMP_DIR/jq"
-  chmod +x "$TEMP_DIR/jq"
-  alias jq="$TEMP_DIR/jq"
-fi
-
-if ! which gcloud > /dev/null; then
-  cat <<EOF > "$TEMP_DIR/id_request.json"
+if ! which gcloud >/dev/null; then
+	cat <<EOF >"$TEMP_DIR/id_request.json"
 {
 "audience": "https://${SERVICE_FQDN}",
 "includeEmail": "true"
 }
 EOF
 
-  TOKEN="$(curl -s -X GET -H "Metadata-Flavor: Google" "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token" | jq -r ".access_token")"
+	TOKEN="$(curl -s -X GET -H "Metadata-Flavor: Google" "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token" | jq -r ".access_token")"
 
-  EMAIL="$(curl -s -X GET -H "Metadata-Flavor: Google" "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email")"
+	EMAIL="$(curl -s -X GET -H "Metadata-Flavor: Google" "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email")"
 
-  ID_TOKEN="$(curl -s -X POST \
-    -H "Authorization: Bearer $TOKEN" \
-    -H "Content-Type: application/json; charset=utf-8" \
-    -d "@$TEMP_DIR/id_request.json" \
-    "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${EMAIL}:generateIdToken" | jq -r ".token")"
+	ID_TOKEN="$(curl -s -X POST \
+		-H "Authorization: Bearer $TOKEN" \
+		-H "Content-Type: application/json; charset=utf-8" \
+		-d "@$TEMP_DIR/id_request.json" \
+		"https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${EMAIL}:generateIdToken" | jq -r ".token")"
 
 else
-  ID_TOKEN="$(gcloud auth print-identity-token)"
+	ID_TOKEN="$(gcloud auth print-identity-token)"
 fi
 
-cat <<EOF > "$TEMP_DIR/req.cred.json"
+cat <<EOF >"$TEMP_DIR/req.cred.json"
 {
   "bucket": "${NIM_GCS_BUCKET}",
   "text": "${NGC_EULA_TEXT}",
